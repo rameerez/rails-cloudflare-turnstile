@@ -3,10 +3,15 @@
     setTimeout(function() {
       console.log("setting mock cloudflare turnstile to ✓");
       for (let elem of document.getElementsByClassName("cf-turnstile")) {
-        elem.getElementsByTagName("p")[0].style.color = 'green';
-        elem.getElementsByTagName("p").innerHTML = "Mocked CAPTCHA succeeded"
+        // Only the mock widget has a label; skip anything else on the page.
+        const label = elem.getElementsByTagName("p")[0];
+        if (label) {
+          label.style.color = 'green';
+          label.innerHTML = "Mocked CAPTCHA succeeded";
+        }
         if (elem.dataset.callback !== undefined) {
-          eval(elem.dataset.callback).call("mocked");
+          // Turnstile passes the token to data-callback as its first argument.
+          eval(elem.dataset.callback)("mocked");
         }
       }
     }, 1500);
