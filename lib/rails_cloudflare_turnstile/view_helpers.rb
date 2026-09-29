@@ -17,9 +17,8 @@ module RailsCloudflareTurnstile
     end
 
     # turbo_reload: true (the default) marks the tag data-turbo-track="reload"
-    # and data-turbo-temporary, which makes Turbo fall back to a full page load
-    # on every visit that leaves a page carrying it, so the implicit scan runs
-    # again. Pass false to keep Turbo Drive, and render widgets yourself (see
+    # and data-turbo-temporary, which can force full page loads in Turbo Drive.
+    # Pass false to keep Turbo Drive, and render widgets yourself (see
     # "Using with Turbo" in the README).
     def cloudflare_turnstile_script_tag(async: true, defer: true, explicit: false, turbo_reload: true, **html_options)
       turbo = turbo_reload ? {data: {turbo_track: "reload", turbo_temporary: true}} : {}
